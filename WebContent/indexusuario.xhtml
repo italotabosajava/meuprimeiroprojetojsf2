@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Olá JSF</title>
+</h:head>
+
+<h:body>
+
+<h1>Olá JSF</h1>
+
+
+<h:form id="formUsuario">
+
+<h:panelGrid columns="2">
+<f:facet name="header">
+<h:outputText value="CADASTRO DE PESSOAS"/>
+</f:facet>
+
+<h:outputLabel value="Id:"/>
+<h:inputText value="#{usuarioBean.usuario.id}" readonly="true" />
+
+<h:outputLabel value="nome:"/>
+<h:inputText value="#{usuarioBean.usuario.nome}"/>
+
+<h:outputLabel value="senha:"/>
+<h:inputSecret value="#{usuarioBean.usuario.senha}"/>
+
+<h:outputLabel value = "login:"/>
+<h:inputText value= "#{usuarioBean.usuario.login}"/>
+
+<h:outputLabel value= "sexo"/>
+
+<h:selectOneMenu id="campoSexo" value="#{usuarioBean.usuario.sexo}" required="true">
+    <f:selectItem  itemValue="NAO" itemLabel="[-Selecione-]" noSelectionOption="true"/>
+    <f:selectItem  itemValue="MASCULINO" itemLabel="Masculino" />
+    <f:selectItem  itemValue="FEMININO" itemLabel="Feminino"/>
+                           
+</h:selectOneMenu>
+
+<h:outputLabel/>
+</h:panelGrid>
+<h:commandButton value="Novo" action="#{usuarioBean.novo}"/>
+<h:commandButton value="Salvar" action="#{usuarioBean.salvar}"/>
+<h:commandButton value="Remove" action="#{usuarioBean.remove}"/>
+<h:panelGroup>
+
+</h:panelGroup>
+
+<h:dataTable value="#{usuarioBean.usuarios}" var="usuario" border="3" cellpadding="6">
+<f:facet name="header">
+LISTA DE PESSOAS CADASTRADAS
+</f:facet>
+
+<h:column>
+<f:facet name="header">ID</f:facet>
+<h:outputText value="#{usuario.id}"/>
+</h:column>
+
+<h:column>
+<f:facet name="header">NOME</f:facet>
+<h:outputText value="#{usuario.nome}"/>
+</h:column>
+
+<h:column>
+<f:facet name="header">LOGIN</f:facet>
+<h:outputText value="#{usuario.login}"/>
+</h:column>
+
+<h:column>
+<f:facet name="header">EDITAR</f:facet>
+<h:commandLink value="editar">
+        <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuario}" />
+</h:commandLink>
+</h:column>
+
+<h:column>
+<f:facet name="header">EXCLUIR</f:facet>
+<h:commandLink value="Excluir" action="#{usuarioBean.remove}"> 
+       <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuario}" />
+</h:commandLink>
+</h:column>
+
+
+</h:dataTable>
+
+</h:form>
+</h:body>
+</html>
