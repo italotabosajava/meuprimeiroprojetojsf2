@@ -70,7 +70,4 @@ public class PessoaBean {
 		return "index.jsf";
 	}
 	
-	public void testegit() {
-		
-	}
 }
