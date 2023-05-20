@@ -1,75 +1,230 @@
 package br.com.entidades;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 //cria tabela automatico no banco de dados
 @Entity
-public class Pessoa implements Serializable{
-
+public class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id //identificaa que é uma primary key
-	
-	@GeneratedValue(strategy = GenerationType.AUTO) //gera primary key automatico do banco de dados
+	@Id // identificaa que é uma primary key
+
+	@GeneratedValue(strategy = GenerationType.AUTO) // gera primary key automatico do banco de dados
 	private Long id;
-	
+
 	private String nome;
-	
+
 	private String sobrenome;
-	
+
 	private Integer idade;
-	
+
+	private String cpf;
+
+	private String tituloEleitor;
+
+	@Temporal(TemporalType.DATE)
+	private Date dataNascimento = new Date();
+
 	private String sexo;
- 
-	private String[] frameworks; 
-	
+
+	private String[] frameworks;
+
 	private Boolean ativo;
-	
+
 	private String senha;
-	
+
 	private String login;
-	
+
 	private String perfilUser;
+
+	private String nivelProgamador;
+
+	private Integer[] linguagens;
+
+	private String cep;
+
+	private String logradouro;
+
+	private String complemento;
+
+	private String bairro;
+
+	private String localidade;
+
+	private String uf;
+
+	private String unidade;
+
+	private String gia;
 	
+	private String ibge;
+	
+	public String getIbge() {
+		return ibge;
+	}
+
+	public void setIbge(String ibge) {
+		this.ibge = ibge;
+	}
+	
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getLocalidade() {
+		return localidade;
+	}
+
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	public String getUnidade() {
+		return unidade;
+	}
+
+	public void setUnidade(String unidade) {
+		this.unidade = unidade;
+	}
+
+	public String getGia() {
+		return gia;
+	}
+
+	public void setGia(String gia) {
+		this.gia = gia;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public String getTituloEleitor() {
+		return tituloEleitor;
+	}
+
+	public void setTituloEleitor(String tituloEleitor) {
+		this.tituloEleitor = tituloEleitor;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public Integer[] getLinguagens() {
+		return linguagens;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public void setLinguagens(Integer[] linguagens) {
+		this.linguagens = linguagens;
+	}
+
+	public void setNivelProgamador(String nivelProgamador) {
+		this.nivelProgamador = nivelProgamador;
+	}
+
+	public String getNivelProgamador() {
+		return nivelProgamador;
+	}
+
 	public String getPerfilUser() {
 		return perfilUser;
 	}
+
 	public void setPerfilUser(String perfilUser) {
 		this.perfilUser = perfilUser;
 	}
+
 	public String getSenha() {
 		return senha;
 	}
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
 	public String getLogin() {
 		return login;
 	}
+
 	public void setLogin(String login) {
 		this.login = login;
 	}
-	public Boolean getAtivo() { //sempre que estiver usando hibernate e jpa usar sempre os objetos nunca os tipos primitivos
+
+	public Boolean getAtivo() { // sempre que estiver usando hibernate e jpa usar sempre os objetos nunca os
+								// tipos primitivos
 		return ativo;
 	}
+
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
+
 	public String[] getFrameworks() {
 		return frameworks;
 	}
+
 	public void setFrameworks(String[] frameworks) {
 		this.frameworks = frameworks;
 	}
+
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
+
 	public String getSexo() {
 		return sexo;
 	}
@@ -105,10 +260,12 @@ public class Pessoa implements Serializable{
 	public void setIdade(Integer idade) {
 		this.idade = idade;
 	}
-	//sempre criar um construtor vazio é um padrao java
+
+	// sempre criar um construtor vazio é um padrao java
 	public Pessoa() {
-	
+
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -133,5 +290,5 @@ public class Pessoa implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 }

@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<title>Cadastro de usuarios</title>
@@ -34,21 +33,13 @@
 <h:inputText value="#{pessoaBean.pessoa.id}" readonly="true" />
 
 <h:outputLabel value="nome:"/>
-<h:inputText value="#{pessoaBean.pessoa.nome}" pt:placeholder="Informe o nome do Usuario "/>
- 
+<h:inputText value="#{pessoaBean.pessoa.nome}"/>
 
 <h:outputLabel value = "sobrenome:"/>
 <h:inputText value= "#{pessoaBean.pessoa.sobrenome}"/>
 
 <h:outputLabel value = "idade:"/>
 <h:inputText value= "#{pessoaBean.pessoa.idade}"/>
-
-<h:outputLabel value="CPF"/>
-<h:inputText value="#{pessoaBean.pessoa.cpf}" pt:placeholder="Informe cpf válido "/>
-
-<h:outputLabel value="TituloEleitor"/>
-<h:inputText value="#{pessoaBean.pessoa.tituloEleitor}"/>
-
 
 <h:outputLabel value="Sexo:"/>
 
@@ -57,11 +48,6 @@
     <f:selectItem  itemValue="MASCULINO" itemLabel="Masculino" />
     <f:selectItem  itemValue="FEMININO" itemLabel="Feminino"/>    
 </h:selectOneMenu>
-
-     <h:outputLabel value="Nascimento:"/>
-         <h:inputText value="#{pessoaBean.pessoa.dataNascimento}" converterMessage="DAta de Nascimento Errada"> 
-           <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-03:00"/>
-         </h:inputText>
 
 <h:outputLabel value="Frameworks:"/>
 <h:selectManyMenu id="campoframeworks"
@@ -72,39 +58,6 @@
     <f:selectItem  itemValue="JSF"  />
     <f:selectItem  itemValue="Primefaces"  />
 </h:selectManyMenu>
-
-<h:outputLabel value="CEP:"/>
-<h:inputText value="#{pessoaBean.pessoa.cep}">
-<f:ajax event="blur" execute="@this" 
-listener="#{pessoaBean.pesquisaCep}"
-render="logradouro complemento bairro localidade uf unidade ibge gia" />
-
-</h:inputText >
-
-<h:outputLabel value="logradouro"/>
-<h:inputText value="#{pessoaBean.pessoa.logradouro}" id="logradouro"/>
-
-<h:outputLabel value="complemento"/>
-<h:inputText value="#{pessoaBean.pessoa.complemento}" id="complemento"/>
-
-<h:outputLabel value="bairro"/>
-<h:inputText value="#{pessoaBean.pessoa.bairro}" id="bairro"/>
-
-<h:outputLabel value="Localidade" />
-<h:inputText value="#{pessoaBean.pessoa.localidade}" id="localidade"/>
-
-<h:outputLabel value="uf"/>
-<h:inputText value="#{pessoaBean.pessoa.uf}" id="uf"/>
-
-<h:outputLabel value="unidade"/>
-<h:inputText value="#{pessoaBean.pessoa.unidade}" id="unidade"/>
-
-<h:outputLabel value="ibge"/>
-<h:inputText value="#{pessoaBean.pessoa.ibge}" id="ibge"/>
-
-<h:outputLabel value="gia"/>
-<h:inputText value="#{pessoaBean.pessoa.gia}" id="gia"/>
-
 
 <h:outputLabel value="Ativo:"/>
 <h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}"/>
@@ -147,15 +100,12 @@ render="logradouro complemento bairro localidade uf unidade ibge gia" />
 <h:commandButton value="Novo" action="#{pessoaBean.novo}" image="/resources/img/new-file_40454.png" title="novo"/>  
 <h:commandButton value="Salvar" action="#{pessoaBean.salvar}" image="/resources/img/Save_37110.png" title="salvar"/>
 <h:commandButton value="Remove" action="#{pessoaBean.remove}" image="/resources/img/biggarbagebin_121980.png" title="remove"/>
-<h:commandButton action="#{pessoaBean.limpar}" image="/resources/img/limpar_clean_icon_134365.png" title="limpar"/>
+<h:commandButton value="reset()" image="/resources/img/limpar_clean_icon_134365.png" title="limpar"/>
 <h:panelGroup>
 
 </h:panelGroup>
 
-</h:form>
-
-<h:form id="formeTable">
-<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="3" cellpadding="6" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
+<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="3" cellpadding="6">
 <f:facet name="header">
 Lista de Usuarios Cadastrados
 </f:facet>
@@ -185,7 +135,7 @@ Lista de Usuarios Cadastrados
 <h:outputLabel style="width:200px;" value ="       "/>
 
 
-<h:column rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
+<h:column >
 <f:facet name="header">EXCLUIR</f:facet>
 <h:commandLink  action="#{pessoaBean.remove}"> 
        <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}" />
