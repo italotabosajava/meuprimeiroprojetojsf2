@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 //cria tabela automatico no banco de dados
 @Entity
@@ -67,6 +68,15 @@ public class Pessoa implements Serializable {
 	private String gia;
 	
 	private String ibge;
+	
+	private Estados estados;
+	@Transient /*nao fica perssistente ou nao grava no banco*/
+	public Estados getEstados() {
+		return estados;
+	}
+	public void setEstados(Estados estados) {
+		this.estados = estados;
+	}
 	
 	public String getIbge() {
 		return ibge;

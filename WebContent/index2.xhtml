@@ -142,6 +142,16 @@ render="logradouro complemento bairro localidade uf unidade ibge gia" />
      <f:selectItem itemValue="5" itemLabel="Cobol"/>
 </h:selectManyCheckbox>
 
+<h:outputLabel value="Estados:"/>
+<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" immediate="true">
+       <f:selectItem  itemLabel="--[Selecione]--" noSelectionOption="true"/>
+       <f:selectItems value="#{pessoaBean.estados}"/>
+       <f:ajax event="change" execute="@this" listener="#{pessoaBean.carregaCidades}"/>
+       
+
+</h:selectOneMenu>
+
+
 <h:outputLabel/>
 </h:panelGrid>
 <h:commandButton value="Novo" action="#{pessoaBean.novo}" image="/resources/img/new-file_40454.png" title="novo"/>  

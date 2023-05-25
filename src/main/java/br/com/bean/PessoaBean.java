@@ -21,6 +21,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.SelectItem;
 import javax.faces.render.RenderKit;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -43,6 +44,8 @@ public class PessoaBean {
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	
 	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl();
+	
+	private List<SelectItem> estados;
 	
 	public String salvar() {
 		pessoa = daoGeneric.merge(pessoa);
@@ -182,5 +185,18 @@ public class PessoaBean {
 		 return pessoaUser.getPerfilUser().contentEquals(acesso);
 		 
 		 
+	}
+	public List<SelectItem> getEstados() {
+		estados = iDaoPessoa.listaEstados();
+		return estados;
+	}
+
+	public void carregaCidades(AjaxBehaviorEvent event) {
+		String codigoEstado = (String) event.getComponent().
+				getAttributes().get("submittedValue");
+				
+				if (codigoEstado != null){
+					System.out.println(codigoEstado);
+				}
 	}
 }
