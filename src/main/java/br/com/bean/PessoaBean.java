@@ -29,8 +29,11 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 
 import br.com.dao.DaoGeneric;
+import br.com.entidades.Cidades;
+import br.com.entidades.Estados;
 import br.com.entidades.Pessoa;
 import br.com.entidades.Usuario;
+import br.com.jpaUtil.JPAUtil;
 import br.com.repository.IDaoPessoa;
 import br.com.repository.IDaoPessoaImpl;
 
@@ -46,6 +49,8 @@ public class PessoaBean {
 	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl();
 	
 	private List<SelectItem> estados;
+	
+	private List<SelectItem> cidades;
 	
 	public String salvar() {
 		pessoa = daoGeneric.merge(pessoa);
@@ -196,7 +201,29 @@ public class PessoaBean {
 				getAttributes().get("submittedValue");
 				
 				if (codigoEstado != null){
-					System.out.println(codigoEstado);
-				}
+					Estados estado = JPAUtil.getEntityManager()
+							.find(Estados.class, Long.parseLong(codigoEstado));
+					if (estado != null){
+						pessoa.setEstados(estado);
+						
+						List<Cidades> cidades = JPAUtil.getEntityManager()
+								.createQuery("from Cidades where estados.id = "
+						+ codigoEstado).getResultList();
+						
+						List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();	
+						
+						for (Cidades cidade : cidades) {
+							selectItemsCidade.add(new SelectItem(cidade.getId(), cidade.getNome()));
+						}
+						    setCidades(selectItemsCidade);
+					}}
+	}
+	public void setCidades(List<SelectItem> cidades) {
+		this.cidades = cidades;
+	}
+	
+	public List<SelectItem> getCidades() {
+		return cidades;
 	}
 }
+

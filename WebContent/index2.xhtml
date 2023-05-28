@@ -146,11 +146,15 @@ render="logradouro complemento bairro localidade uf unidade ibge gia" />
 <h:selectOneMenu value="#{pessoaBean.pessoa.estados}" immediate="true">
        <f:selectItem  itemLabel="--[Selecione]--" noSelectionOption="true"/>
        <f:selectItems value="#{pessoaBean.estados}"/>
-       <f:ajax event="change" execute="@this" listener="#{pessoaBean.carregaCidades}"/>
-       
-
+       <f:ajax event="change" execute="@this" render="comboCidade"  
+       listener="#{pessoaBean.carregaCidades}"/>
 </h:selectOneMenu>
 
+             <h:outputLabel value="Cidades:"/>
+                 <h:selectOneMenu value="#{pessoaBean.pessoa.cidades}" id="comboCidade">
+                 <f:selectItem noSelectionOption="true" itemLabel="--[Selecione]--"/>
+                   <f:selectItems value="#{pessoaBean.cidades}"/>
+                 </h:selectOneMenu>
 
 <h:outputLabel/>
 </h:panelGrid>
