@@ -143,7 +143,8 @@ render="logradouro complemento bairro localidade uf unidade ibge gia" />
 </h:selectManyCheckbox>
 
 <h:outputLabel value="Estados:"/>
-<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" immediate="true">
+<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" immediate="true" id="comboEstado"
+                     converter="estadoConverter">
        <f:selectItem  itemLabel="--[Selecione]--" noSelectionOption="true"/>
        <f:selectItems value="#{pessoaBean.estados}"/>
        <f:ajax event="change" execute="@this" render="comboCidade"  
@@ -151,7 +152,8 @@ render="logradouro complemento bairro localidade uf unidade ibge gia" />
 </h:selectOneMenu>
 
              <h:outputLabel value="Cidades:"/>
-                 <h:selectOneMenu value="#{pessoaBean.pessoa.cidades}" id="comboCidade">
+                 <h:selectOneMenu value="#{pessoaBean.pessoa.cidades}" id="comboCidade"
+                 converter="ciadadeConverter">
                  <f:selectItem noSelectionOption="true" itemLabel="--[Selecione]--"/>
                    <f:selectItems value="#{pessoaBean.cidades}"/>
                  </h:selectOneMenu>
@@ -190,12 +192,14 @@ Lista de Usuarios Cadastrados
 </h:column>
 
 <h:column>
-<f:facet name="header">EDITAR</f:facet>
-<h:commandLink > 
-       <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}" />
+       <f:facet name="header">EDITAR</f:facet>
+       <h:commandLink title= "Editar" imediate="true" action="#{pessoaBean.editar}"> 
        <h:graphicImage value="/resources/img/editar_21973.png" title="editar"/>
+       <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}" />
+       
 </h:commandLink>
 </h:column>
+
 <h:outputLabel style="width:200px;" value ="       "/>
 
 

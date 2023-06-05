@@ -14,7 +14,7 @@ import br.com.entidades.Cidades;
 import br.com.entidades.Estados;
 import br.com.jpaUtil.JPAUtil;
 
-@FacesConverter(forClass = Cidades.class)
+@FacesConverter(forClass = Cidades.class, value = "ciadadeConverter")
 public class CidadesConverter implements javax.faces.convert.Converter, Serializable{
 
 	@Override /*retorna o objeto inteiro*/
@@ -35,8 +35,15 @@ public class CidadesConverter implements javax.faces.convert.Converter, Serializ
 	public String getAsString(FacesContext context, UIComponent component,
 			Object cidade) {
 		
-		return ((Cidades) cidade).getId().toString();
+		if (cidade == null){
+			return null;
+		}
+		
+		if (cidade instanceof Cidades) {
+		   return ((Cidades) cidade).getId().toString();
+		}else{
+	         return cidade.toString();
 	}
-	
+	}
 }
 	

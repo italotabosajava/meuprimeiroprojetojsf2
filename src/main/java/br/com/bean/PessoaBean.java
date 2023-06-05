@@ -16,6 +16,7 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
@@ -197,27 +198,41 @@ public class PessoaBean {
 	}
 
 	public void carregaCidades(AjaxBehaviorEvent event) {
-		String codigoEstado = (String) event.getComponent().
-				getAttributes().get("submittedValue");
-				
-				if (codigoEstado != null){
-					Estados estado = JPAUtil.getEntityManager()
-							.find(Estados.class, Long.parseLong(codigoEstado));
+		Estados estado = (Estados) ((HtmlSelectOneMenu) event.getSource()).getValue();
+		
 					if (estado != null){
 						pessoa.setEstados(estado);
 						
 						List<Cidades> cidades = JPAUtil.getEntityManager()
-								.createQuery("from Cidades where estados.id = "
-						+ codigoEstado).getResultList();
+								       .createQuery("from Cidades where estados.id = "
+						               + estado.getId()).getResultList();
 						
 						List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();	
 						
 						for (Cidades cidade : cidades) {
-							selectItemsCidade.add(new SelectItem(cidade.getId(), cidade.getNome()));
+							selectItemsCidade.add(new SelectItem(cidade, cidade.getNome()));
 						}
 						    setCidades(selectItemsCidade);
 					}}
+	
+   public void editar() {
+	  if (pessoa.getCidades() != null) {
+		  Estados estado = pessoa.getCidades().getEstados();
+		  pessoa.setEstados(estado);
+		  
+		  List<Cidades> cidades = JPAUtil.getEntityManager()
+			       .createQuery("from Cidades where estados.id = "
+	               + estado.getId()).getResultList();
+	
+	List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();	
+	
+	for (Cidades cidade : cidades) {
+		selectItemsCidade.add(new SelectItem(cidade, cidade.getNome()));
 	}
+	    setCidades(selectItemsCidade);
+		  
+   }
+   }
 	public void setCidades(List<SelectItem> cidades) {
 		this.cidades = cidades;
 	}
