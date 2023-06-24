@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.type.descriptor.java.UUIDTypeDescriptor.ToStringTransformer;
+
 @Entity
 public class Cidades implements Serializable {
 
@@ -72,6 +74,8 @@ public boolean equals(Object obj) {
 	} else if (!id.equals(other.id))
 		return false;
 	return true;
+	
+
 }
 
 

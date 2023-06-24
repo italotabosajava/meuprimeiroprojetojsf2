@@ -18,7 +18,7 @@
 
 <h:panelGrid columns="2">
 <f:facet name="header">
-<h:outputText value="CADASTRO DE PESSOAS"/>
+<h:outputText value="CADASTRO DE USUARIOS"/>
 </f:facet>
 
 <h:outputLabel value="Id:"/>
@@ -26,6 +26,19 @@
 
 <h:outputLabel value="nome:"/>
 <h:inputText value="#{usuarioBean.usuario.nome}"/>
+
+<h:outputLabel value="Sobrenome:" />
+<h:inputText value="#{usuarioBean.usuario.sobrenome}"/>
+
+<h:outputLabel value="cpf:" />
+<h:inputText value="#{usuarioBean.usuario.cpf}"/>
+
+<h:outputLabel value="idade:" />
+<h:inputText value="#{usuarioBean.usuario.idade}"/>
+
+<h:outputLabel value="tituloEleitor:" />
+<h:inputText value="#{usuarioBean.usuario.tituloEleitor}"/>
+
 
 <h:outputLabel value="senha:"/>
 <h:inputSecret value="#{usuarioBean.usuario.senha}"/>
@@ -35,14 +48,67 @@
 
 <h:outputLabel value= "sexo"/>
 
-<h:selectOneMenu id="campoSexo" value="#{usuarioBean.usuario.sexo}" required="true">
+<h:selectOneMenu id="campoSexo" value="#{usuarioBean.usuario.sexo}" required="false">
     <f:selectItem  itemValue="NAO" itemLabel="[-Selecione-]" noSelectionOption="true"/>
     <f:selectItem  itemValue="MASCULINO" itemLabel="Masculino" />
-    <f:selectItem  itemValue="FEMININO" itemLabel="Feminino"/>
-                           
+    <f:selectItem  itemValue="FEMININO" itemLabel="Feminino" />
+                   
 </h:selectOneMenu>
 
-<h:outputLabel/>
+    <h:outputLabel value = "Nascimento:"/>
+    <h:inputText value= "#{usuarioBean.usuario.nascimento}"/>
+
+<h:outputLabel value="Frameworks:"/>
+<h:selectManyMenu id="campoframeworks"
+value="#{usuarioBean.usuario.frameworks}"  style="height:150px">
+       <f:selectItem itemvalue="JPA" />
+       <f:selectItem itemValue="Hibernet" />
+       <f:selectItem itemValue="Spring MVC" />
+       <f:selectItem itemValue="JSF" />
+       <f:selectItem itemValue="Primefaces" />
+
+</h:selectManyMenu>
+
+<h:outputLabel value="logradouro"/>
+<h:inputText value="#{usuarioBean.usuario.logradouro}" id="logradouro"/>
+
+<h:outputLabel value="cep"/>
+<h:inputText value="#{usuarioBean.usuario.cep}" id="cep"/> 
+
+<h:outputLabel value="complemento"/>
+<h:inputText value="#{usuarioBean.usuario.complemento}" id="complemento"/> 
+
+<h:outputLabel value="bairro"/>
+<h:inputText value="#{usuarioBean.usuario.bairro}" id="bairro"/>
+
+<h:outputLabel value="localidade"/>
+<h:inputText value="#{usuarioBean.usuario.localidade}" id="localidade"/>
+
+<h:outputLabel value="uf"/>
+<h:inputText value="#{usuarioBean.usuario.uf}" id="uf"/> 
+
+<h:outputLabel value="unidade"/>
+<h:inputText value="#{usuarioBean.usuario.unidade}" id="unidade"/> 
+
+ <h:outputLabel value="ibge"/>
+<h:inputText value="#{usuarioBean.usuario.ibge}" id="ibge"/> 
+ 
+<h:outputLabel value="gia"/>
+<h:inputText value="#{usuarioBean.usuario.gia}" id="gia"/> 
+
+<h:outputLabel value="ativo"/>
+<h:selectBooleanCheckbox value="#{usuarioBean.usuario.ativo}"/>
+
+<h:outputLabel value="perfil"/>
+
+<h:selectOneMenu id="Perfil" value="#{usuarioBean.usuario.perfil}" required="false">
+                  <f:selectItem  itemValue="NAO" itemLabel="[-Selecione-]" noSelectionOption="true"/>
+    <f:selectItem  itemValue="ADMINISTRADOR" itemLabel="Administrador"/>
+    <f:selectItem  itemValue="SECRETARIO" itemLabel="Secretario"/>  
+     <f:selectItem  itemValue="RECEPCIONISTA" itemLabel="Recepcionista"/> 
+
+</h:selectOneMenu>
+
 </h:panelGrid>
 <h:commandButton value="Novo" action="#{usuarioBean.novo}"/>
 <h:commandButton value="Salvar" action="#{usuarioBean.salvar}"/>
@@ -50,6 +116,9 @@
 <h:panelGroup>
 
 </h:panelGroup>
+</h:form>
+
+<h:form id="listUsuario">
 
 <h:dataTable value="#{usuarioBean.usuarios}" var="usuario" border="3" cellpadding="6">
 <f:facet name="header">
@@ -67,14 +136,16 @@ LISTA DE PESSOAS CADASTRADAS
 </h:column>
 
 <h:column>
-<f:facet name="header">LOGIN</f:facet>
-<h:outputText value="#{usuario.login}"/>
+<f:facet name="header">SOBRE NOME</f:facet>
+<h:outputText value="#{usuario.sobrenome}"/>
 </h:column>
 
 <h:column>
-<f:facet name="header">EDITAR</f:facet>
-<h:commandLink value="editar">
-        <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuario}" />
+ <f:facet name="header">EDITAR</f:facet>
+       <h:commandLink title= "Editar" imediate="true" action="#{usuarioBean.editar}"> 
+       <h:graphicImage value="/resources/img/editar_21973.png" title="editar"/>
+       <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuario}" />
+
 </h:commandLink>
 </h:column>
 
@@ -87,7 +158,6 @@ LISTA DE PESSOAS CADASTRADAS
 
 
 </h:dataTable>
-
 </h:form>
 </h:body>
 </html>

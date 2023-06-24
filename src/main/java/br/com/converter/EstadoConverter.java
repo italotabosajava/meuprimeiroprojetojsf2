@@ -1,17 +1,14 @@
 package br.com.converter;
 
 import java.io.Serializable;
-import java.lang.annotation.Annotation;
 
+import javax.enterprise.inject.spi.CDI;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.FacesConverter;
-import javax.persistence.Converter;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 import br.com.entidades.Estados;
-import br.com.jpaUtil.JPAUtil;
 
 @FacesConverter(forClass = Estados.class, value = "estadoConverter")
 public class EstadoConverter implements javax.faces.convert.Converter, Serializable{
@@ -20,12 +17,10 @@ public class EstadoConverter implements javax.faces.convert.Converter, Serializa
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String codigoEstado) {
 	
-		EntityManager entityManager =JPAUtil.getEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
+		EntityManager entityManager = CDI.current().select(EntityManager.class).get();
 		
-		Estados estados = (Estados) entityManager.
-				find(Estados.class, Long.parseLong(codigoEstado));
+		Estados estados = (Estados) entityManager.find(Estados.class,
+				Long.parseLong(codigoEstado));
 		
 		return estados;
 	}

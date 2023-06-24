@@ -21,6 +21,7 @@ public class UsuarioBean {
 	public String salvar() {
 		usuario = daoGeneric.merge(usuario);
 		carregarUsuarios();
+		//novo();
 		return"";	//pra ficar na mesma pagina usa-se return"" ou null
 	}
 	
@@ -36,6 +37,13 @@ public class UsuarioBean {
 			carregarUsuarios();
 			return"";
 		}
+	
+	public String editar() {
+		if (usuario == null) {
+			return""; 
+		}
+		return"";
+	}
  	
 	@PostConstruct
 	public void carregarUsuarios(){
@@ -65,7 +73,6 @@ public class UsuarioBean {
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
-	
 	
 	
 }	

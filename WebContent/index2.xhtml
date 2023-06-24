@@ -20,7 +20,7 @@
 
 </h:form>
 
-<h:form id="formPessoa" >
+<h:form id="formPessoa" enctype="multipart/form-data">
 
 <h:messages infoStyle="color:green;background:6495ED"/>
 
@@ -31,7 +31,10 @@
 
 
 <h:outputLabel value="Id:"/>
-<h:inputText value="#{pessoaBean.pessoa.id}" readonly="true" />
+<h:inputText value="#{pessoaBean.pessoa.id}" readonly="true"/>
+
+<h:outputLabel value="foto:"/>
+<h:inputFile id="foto" value="#{pessoaBean.arquivofoto}"/>
 
 <h:outputLabel value="nome:"/>
 <h:inputText value="#{pessoaBean.pessoa.nome}" pt:placeholder="Informe o nome do Usuario "/>
@@ -71,6 +74,7 @@
     <f:selectItem  itemValue="Spring mvc"  />
     <f:selectItem  itemValue="JSF"  />
     <f:selectItem  itemValue="Primefaces"  />
+    
 </h:selectManyMenu>
 
 <h:outputLabel value="CEP:"/>
@@ -117,7 +121,6 @@ render="logradouro complemento bairro localidade uf unidade ibge gia" />
 
 <h:outputLabel value="Perfil:"/> 
 
-
 <h:selectOneMenu id="Perfil" value="#{pessoaBean.pessoa.perfilUser}" required="false">
     <f:selectItem  itemValue="NAO" itemLabel="[-Selecione-]" noSelectionOption="true"/>
     <f:selectItem  itemValue="ADMINISTRADOR" itemLabel="Administrador"/>
@@ -145,7 +148,7 @@ render="logradouro complemento bairro localidade uf unidade ibge gia" />
 <h:outputLabel value="Estados:"/>
 <h:selectOneMenu value="#{pessoaBean.pessoa.estados}" immediate="true" id="comboEstado"
                      converter="estadoConverter">
-       <f:selectItem  itemLabel="--[Selecione]--" noSelectionOption="true"/>
+       <f:selectItem  itemLabel="--[Selecione]--" noSelectionOption="true" />
        <f:selectItems value="#{pessoaBean.estados}"/>
        <f:ajax event="change" execute="@this" render="comboCidade"  
        listener="#{pessoaBean.carregaCidades}"/>
@@ -157,8 +160,8 @@ render="logradouro complemento bairro localidade uf unidade ibge gia" />
                  <f:selectItem noSelectionOption="true" itemLabel="--[Selecione]--"/>
                    <f:selectItems value="#{pessoaBean.cidades}"/>
                  </h:selectOneMenu>
+            <h:outputLabel/>
 
-<h:outputLabel/>
 </h:panelGrid>
 <h:commandButton value="Novo" action="#{pessoaBean.novo}" image="/resources/img/new-file_40454.png" title="novo"/>  
 <h:commandButton value="Salvar" action="#{pessoaBean.salvar}" image="/resources/img/Save_37110.png" title="salvar"/>
@@ -192,6 +195,14 @@ Lista de Usuarios Cadastrados
 </h:column>
 
 <h:column>
+<f:facet name="header">FOTO</f:facet>
+<h:commandLink actionListener="#{pessoaBean.download}">
+<h:graphicImage width="60" height="60" value="#{pessoa.fotoIconBase64}"/>
+<f:param name="fileDownloadId" value="#{pessoa.id}"/>
+</h:commandLink>
+</h:column>
+
+<h:column>
        <f:facet name="header">EDITAR</f:facet>
        <h:commandLink title= "Editar" imediate="true" action="#{pessoaBean.editar}"> 
        <h:graphicImage value="/resources/img/editar_21973.png" title="editar"/>
@@ -205,7 +216,7 @@ Lista de Usuarios Cadastrados
 
 <h:column rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 <f:facet name="header">EXCLUIR</f:facet>
-<h:commandLink  action="#{pessoaBean.remove}"> 
+<h:commandLink  action="#{pessoaBean.remove}" immediate="true"> 
        <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}" />
         <h:graphicImage value="/resources/img/userdelete_120257.png" title="excluir"/>
 </h:commandLink>

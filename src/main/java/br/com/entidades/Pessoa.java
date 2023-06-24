@@ -16,6 +16,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.constraints.br.TituloEleitoral;
+
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 //cria tabela automatico no banco de dados
 @Entity
 public class Pessoa implements Serializable {
@@ -26,15 +35,22 @@ public class Pessoa implements Serializable {
 
 	@GeneratedValue(strategy = GenerationType.AUTO) // gera primary key automatico do banco de dados
 	private Long id;
-
+     @Size (min=10, max = 50, message = "Nome deve ter entre 10 e 50 letras")
 	private String nome;
-
+     
+	
+	@NotEmpty (message = "Sobrenome deve ser informado")
+	@NotNull (message = "Sobrenome deve ser informado")
 	private String sobrenome;
 
+    @DecimalMax(value = "50", message = "Idade deve ser menor que 50")
+    @DecimalMin(value = "10", message = "Idade deve ser maior que 10")	
 	private Integer idade;
 
+    @CPF(message = "cpf invalido")
 	private String cpf;
 
+    @TituloEleitoral(message = "Titulo eleitoral invalido")
 	private String tituloEleitor;
 
 	@Temporal(TemporalType.DATE)
@@ -96,6 +112,7 @@ public class Pessoa implements Serializable {
 
 	public void setFotoIconBase64(String fotoIconBase64) {
 		this.fotoIconBase64 = fotoIconBase64;
+		
 	}
 
 	public String getExtensao() {

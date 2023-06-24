@@ -1,29 +1,27 @@
 package br.com.converter;
 
 import java.io.Serializable;
-import java.lang.annotation.Annotation;
 
+import javax.enterprise.inject.spi.CDI;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.FacesConverter;
-import javax.persistence.Converter;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 import br.com.entidades.Cidades;
-import br.com.entidades.Estados;
-import br.com.jpaUtil.JPAUtil;
+import javassist.SerialVersionUID;
 
+@SuppressWarnings("serial")
 @FacesConverter(forClass = Cidades.class, value = "ciadadeConverter")
 public class CidadesConverter implements javax.faces.convert.Converter, Serializable{
+	
+	private static final long SerialVersionUID = 7942337638899772351L;
 
 	@Override /*retorna o objeto inteiro*/
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String codigoCidade) {
 	
-		EntityManager entityManager =JPAUtil.getEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
+		EntityManager entityManager = CDI.current().select(EntityManager.class).get();
 		
 		Cidades cidade = (Cidades) entityManager.
 				find(Cidades.class, Long.parseLong(codigoCidade));
