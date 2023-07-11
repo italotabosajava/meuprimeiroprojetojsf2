@@ -14,7 +14,7 @@ import br.com.jpaUtil.JPAUtil;
     public class DaoGeneric<E> {
 
     @Inject
-    private EntityManager	entityManager;
+    private EntityManager entityManager;
     
     @Inject
     private JPAUtil jpaUtil;
@@ -37,7 +37,7 @@ import br.com.jpaUtil.JPAUtil;
 		E retorno = entityManager.merge(entidade);
 		
 		entityTransaction.commit();
-		entityManager.close();
+		//entityManager.close();
 		
 	    return retorno;
 	}

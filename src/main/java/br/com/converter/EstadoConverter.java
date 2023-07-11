@@ -13,6 +13,9 @@ import br.com.entidades.Estados;
 @FacesConverter(forClass = Estados.class, value = "estadoConverter")
 public class EstadoConverter implements javax.faces.convert.Converter, Serializable{
 
+	
+	private static final long serialVersionUID = 1L;
+
 	@Override /*retorna o objeto inteiro*/
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String codigoEstado) {

@@ -130,22 +130,23 @@ public class Pessoa implements Serializable {
 	public void setFotoIconBase64Original(byte[] fotoIconBase64Original) {
 		this.fotoIconBase64Original = fotoIconBase64Original;
 	}
-
-	public Cidades getCidades() {
-		return cidades;
-	}
-	
-	public void setCidades(Cidades cidades) {
-		this.cidades = cidades;
-	}
 	
 	public Estados getEstados() {
 		return estados;
 	}
+
 	public void setEstados(Estados estados) {
 		this.estados = estados;
 	}
-	
+
+	public Cidades getCidades() {
+		return cidades;
+	}
+
+	public void setCidades(Cidades cidades) {
+		this.cidades = cidades;
+	}
+
 	public String getIbge() {
 		return ibge;
 	}

@@ -1,5 +1,6 @@
 package br.com.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +18,12 @@ import br.com.entidades.Pessoa;
 import br.com.repository.IDaoLancamento;
 import br.com.repository.IDaoLancamentoImpl;
 
-@javax.faces.view.ViewScoped
+@ViewScoped
 @Named(value = "lancamentoBean")
-public class LancamentoBean {
+public class LancamentoBean implements Serializable{
 
+	
+	private static final long serialVersionUID = 1L;
 	private Lancamento lancamento = new Lancamento();
 	private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
 	

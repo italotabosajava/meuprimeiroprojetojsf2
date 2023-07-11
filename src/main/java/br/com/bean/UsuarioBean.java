@@ -1,20 +1,29 @@
 package br.com.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import br.com.dao.DaoGeneric;
 import br.com.entidades.Usuario;
 
-@ViewScoped
-@ManagedBean (name = "usuarioBean")
-public class UsuarioBean {
+@RequestScoped
+@Named(value = "usuarioBean")
+public class UsuarioBean implements Serializable{
 
-	private Usuario usuario = new Usuario();
-	private DaoGeneric<Usuario>  daoGeneric = new DaoGeneric<Usuario>();
+	
+	private static final long serialVersionUID = 1L;
+	@Inject
+	private Usuario usuario;
+	@Inject
+	private DaoGeneric<Usuario>  daoGeneric;
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
 
 	
@@ -29,7 +38,7 @@ public class UsuarioBean {
 		usuario = new Usuario();
 		return"";
 	}
-	public boolean resposta ;
+	//public boolean resposta ;
 	
 	public String remove() {
 			daoGeneric.deletePorId(usuario);

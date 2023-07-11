@@ -26,20 +26,30 @@ public class IDaoPessoaImpl implements IDaoPessoa {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		
-		pessoa = (Pessoa) entityManager.createQuery("select p from Pessoa p where p.login = '" + login + "' and p.senha = '" + senha + "'").getSingleResult();
+	try {
+	pessoa = (Pessoa) entityManager
+		.createQuery("select p from Pessoa p where p.login = '" + login + "' and p.senha = '" + senha + "'")
+		.getSingleResult();
+	
+   } catch (Exception e) {/*tratamento se nao encontrar usuario com login e senha*/
+	}	
 		
 		entityTransaction.commit();
-		entityManager.close();
 		
 		return pessoa;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<SelectItem> listaEstados() {
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		
+		List<Estados> estados = new ArrayList<Estados>();
 		
 		List<SelectItem> selectItems = new ArrayList<SelectItem>();
 				
-		List<Estados> estados = entityManager.createQuery("from Estados").getResultList();
+		estados = entityManager.createQuery("from Estados").getResultList();
 		
 		for (Estados estado : estados) {
 			selectItems.add(new SelectItem(estado, estado.getNome()));

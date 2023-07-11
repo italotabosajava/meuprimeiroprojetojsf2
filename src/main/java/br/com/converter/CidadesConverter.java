@@ -15,7 +15,6 @@ import javassist.SerialVersionUID;
 @FacesConverter(forClass = Cidades.class, value = "ciadadeConverter")
 public class CidadesConverter implements javax.faces.convert.Converter, Serializable{
 	
-	private static final long SerialVersionUID = 7942337638899772351L;
 
 	@Override /*retorna o objeto inteiro*/
 	public Object getAsObject(FacesContext context, UIComponent component,

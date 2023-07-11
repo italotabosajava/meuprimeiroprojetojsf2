@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -15,7 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -39,11 +44,13 @@ import br.com.jpaUtil.JPAUtil;
 import br.com.repository.IDaoPessoa;
 
 
-@javax.faces.view.ViewScoped
+@RequestScoped
 @Named(value = "pessoaBean")
-public class PessoaBean {
+public class PessoaBean implements Serializable{
 
-	private Pessoa pessoa = new Pessoa();
+	private static final long serialVersionUID = 1L;
+	@Inject
+	private Pessoa pessoa;
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	
 	@Inject
@@ -62,7 +69,9 @@ public class PessoaBean {
 	private Part arquivofoto;
 	
 	public String salvar()throws IOException{
-		/*Processar imagem*/
+		/*Processar imagem*/		
+		if(arquivofoto != null) {	
+		
 		byte[] imagemByte = getByte(arquivofoto.getInputStream());
 		pessoa.setFotoIconBase64Original(imagemByte);/* salva imagem original*/
 		
@@ -92,14 +101,15 @@ public class PessoaBean {
  /*Processar imagem*/  
 		pessoa.setFotoIconBase64(miniImagem);
 		pessoa.setExtensao(extensao);
+		}
 		
-		pessoa = daoGeneric.merge(pessoa);
-		carregarpessoas();
+		 daoGeneric.merge(pessoa);
+		//carregarpessoas();
 		mostrarMsg("Cadastrado com sucesso");
-		
-		return"";	 //pra ficar na mesma pagina usa-se return"" ou null
-		
+		novo();
+		return "";	 //pra ficar na mesma pagina usa-se return"" ou null
 	}
+	
 	private void mostrarMsg(String msg) {
 	   FacesContext context = FacesContext.getCurrentInstance();
 	   FacesMessage message = new FacesMessage(msg);
@@ -107,6 +117,7 @@ public class PessoaBean {
 	   {		
 		}
 	}
+	
 	public String novo() {
 		pessoa = new Pessoa();
 		return"";
@@ -219,6 +230,11 @@ public class PessoaBean {
 			//session.setAttribute("usuarioLogado ", pessoaUser);
 			
 		return"index2.xhtml";	
+		
+		}else {
+		FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage("Usuario não encontrado"));
+		
+			
 		}
 		return "index.xhtml";
 	}
@@ -226,13 +242,15 @@ public class PessoaBean {
 	public boolean permiteAcesso(String acesso) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
-		 Pessoa pessoaUser = (Pessoa) externalContext.getSessionMap().get("usuarioLogado");
+		 Pessoa pessoaUser = (Pessoa) externalContext.getSessionMap().get
+				 ("usuarioLogado");
 		 
 		 return pessoaUser.getPerfilUser().contentEquals(acesso);
 		 
 		 
 	}
 	public List<SelectItem> getEstados() {
+		List<SelectItem> estados = new ArrayList<SelectItem>();
 		estados = iDaoPessoa.listaEstados();
 		return estados;
 	}
