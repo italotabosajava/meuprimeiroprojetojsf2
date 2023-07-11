@@ -69,15 +69,18 @@ public class PessoaBean implements Serializable{
 	private Part arquivofoto;
 	
 	public String salvar()throws IOException{
-		/*Processar imagem*/		
-		if(arquivofoto != null) {	
-		
+				
+		if (arquivofoto.getInputStream() != null) {	
+			
+			/*Processar imagem*/
 		byte[] imagemByte = getByte(arquivofoto.getInputStream());
-		pessoa.setFotoIconBase64Original(imagemByte);/* salva imagem original*/
 		
 		/*transforma em buffimage*/
 		BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagemByte));
 		
+		if(bufferedImage != null) {
+		
+			pessoa.setFotoIconBase64Original(imagemByte);/* salva imagem original*/
 		/*pegar o tipo da imagem*/
 		int type = bufferedImage.getType() == 0? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
 		
@@ -97,10 +100,11 @@ public class PessoaBean implements Serializable{
 		String miniImagem = "data:" + arquivofoto.getContentType()+";base64," +
 		                   DatatypeConverter.printBase64Binary(baos.toByteArray());
 		
-		
  /*Processar imagem*/  
 		pessoa.setFotoIconBase64(miniImagem);
 		pessoa.setExtensao(extensao);
+		
+		}
 		}
 		
 		 daoGeneric.merge(pessoa);

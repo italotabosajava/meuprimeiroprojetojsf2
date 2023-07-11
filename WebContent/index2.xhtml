@@ -23,37 +23,49 @@
 
 <h:form id="formPessoa" enctype="multipart/form-data">
 
-<h:messages infoStyle="color:green;background:6495ED"/>
+<b:messages infoStyle="color:green;background:6495ED"/>
 
-<h:panelGrid columns="2">
+<h:panelGrid columns="4">
 <f:facet name="header">
 <h:outputText value="Cadastro de Usuarios"/>
 </f:facet>
 
-
+<b:column>
 <h:outputLabel value="Id:"/>
 <b:inputText value="#{pessoaBean.pessoa.id}" readonly="true"/>
+</b:column>
 
+<b:column>
 <h:outputLabel value="foto:"/>
 <h:inputFile id="foto" value="#{pessoaBean.arquivofoto}"/>
+</b:column>
 
+<b:column>
 <h:outputLabel value="nome:"/>
 <b:inputText value="#{pessoaBean.pessoa.nome}" pt:placeholder="Informe o nome do Usuario "/>
- 
+ </b:column>
 
+<b:column>
 <h:outputLabel value = "sobrenome:"/>
 <b:inputText value= "#{pessoaBean.pessoa.sobrenome}"/>
+</b:column>
 
+<b:column>
 <h:outputLabel value = "idade:"/>
 <b:inputText value= "#{pessoaBean.pessoa.idade}"/>
+</b:column>
 
+<b:column>
 <h:outputLabel value="CPF"/>
 <b:inputText value="#{pessoaBean.pessoa.cpf}" pt:placeholder="Informe cpf válido "/>
+</b:column>
 
+<b:column>
 <h:outputLabel value="TituloEleitor"/>
 <b:inputText value="#{pessoaBean.pessoa.tituloEleitor}"/>
+</b:column>
 
-
+<b:column>
 <h:outputLabel value="Sexo:"/>
 
 <b:selectOneMenu id="campoSexo" value="#{pessoaBean.pessoa.sexo}" required="false">
@@ -61,9 +73,9 @@
     <f:selectItem  itemValue="MASCULINO" itemLabel="Masculino" />
     <f:selectItem  itemValue="FEMININO" itemLabel="Feminino"/>    
 </b:selectOneMenu>
-
+</b:column>
  
-
+<b:column>
 <h:outputLabel value="Frameworks:"/>
 <h:selectManyMenu id="campoframeworks"
  value="#{pessoaBean.pessoa.frameworks}" style="height:150px">
@@ -72,9 +84,10 @@
     <f:selectItem  itemValue="Spring mvc"  />
     <f:selectItem  itemValue="JSF"  />
     <f:selectItem  itemValue="Primefaces"  />
-    
 </h:selectManyMenu>
+</b:column>
 
+<b:column>
 <h:outputLabel value="CEP:"/>
 <b:inputText value="#{pessoaBean.pessoa.cep}">
 <f:ajax event="blur" execute="@this" 
@@ -82,50 +95,75 @@ listener="#{pessoaBean.pesquisaCep}"
 render="logradouro complemento bairro localidade uf unidade ibge gia" />
 
 </b:inputText >
+</b:column>
 
+<b:column>
 <h:outputLabel value="logradouro"/>
 <b:inputText value="#{pessoaBean.pessoa.logradouro}" id="logradouro"/>
+</b:column>
 
+<b:column>
 <h:outputLabel value="complemento"/>
 <b:inputText value="#{pessoaBean.pessoa.complemento}" id="complemento"/>
+</b:column>
 
+<b:column>
 <h:outputLabel value="bairro"/>
 <b:inputText value="#{pessoaBean.pessoa.bairro}" id="bairro"/>
+</b:column>
 
+<b:column>
 <h:outputLabel value="Localidade" />
 <b:inputText value="#{pessoaBean.pessoa.localidade}" id="localidade"/>
+</b:column>
 
+<b:column>
 <h:outputLabel value="uf"/>
 <b:inputText value="#{pessoaBean.pessoa.uf}" id="uf"/>
+</b:column>
 
+<b:column>
 <h:outputLabel value="unidade"/>
 <b:inputText value="#{pessoaBean.pessoa.unidade}" id="unidade"/>
+</b:column>
 
+<b:column>
 <h:outputLabel value="ibge"/>
 <b:inputText value="#{pessoaBean.pessoa.ibge}" id="ibge"/>
+</b:column>
 
+<b:column>
 <h:outputLabel value="gia"/>
 <b:inputText value="#{pessoaBean.pessoa.gia}" id="gia"/>
+</b:column>
 
 
+<b:column>
 <h:outputLabel value="Ativo:"/>
 <h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}"/>
+</b:column>
 
+<b:column>
 <h:outputLabel value="login:"/>
 <b:inputText value="#{pessoaBean.pessoa.login}"/>
+</b:column>
 
+<b:column>
 <h:outputLabel value="senha:"/>
 <b:inputSecret value="#{pessoaBean.pessoa.senha}"/>
+</b:column>
 
+<b:column>
 <h:outputLabel value="Perfil:"/> 
-
 <b:selectOneMenu id="Perfil" value="#{pessoaBean.pessoa.perfilUser}" required="false">
     <f:selectItem  itemValue="NAO" itemLabel="[-Selecione-]" noSelectionOption="true"/>
     <f:selectItem  itemValue="ADMINISTRADOR" itemLabel="Administrador"/>
     <f:selectItem  itemValue="SECRETARIO" itemLabel="Secretario"/>  
      <f:selectItem  itemValue="RECEPCIONISTA" itemLabel="Recepcionista"/>   
 </b:selectOneMenu>
+</b:column>
 
+<b:column>
 <h:outputLabel value="Programador:" />
 <h:selectOneRadio value="#{pessoaBean.pessoa.nivelProgamador}">
 <f:selectItem itemValue="J" itemLabel="Junior" />
@@ -133,7 +171,9 @@ render="logradouro complemento bairro localidade uf unidade ibge gia" />
 <f:selectItem itemValue="S" itemLabel="Senior" />
 <f:selectItem itemValue="E" itemLabel="Expecialista" />
 </h:selectOneRadio>
+</b:column>
 
+<b:column>
 <h:outputLabel value="Liguagens"/>
 <h:selectManyCheckbox>
      <f:selectItem itemValue="1" itemLabel="Java"/>
@@ -142,6 +182,7 @@ render="logradouro complemento bairro localidade uf unidade ibge gia" />
      <f:selectItem itemValue="4" itemLabel="C#"/>
      <f:selectItem itemValue="5" itemLabel="Cobol"/>
 </h:selectManyCheckbox>
+</b:column>
 
 
 </h:panelGrid>
@@ -152,6 +193,7 @@ render="logradouro complemento bairro localidade uf unidade ibge gia" />
 <h:panelGroup>
 
 </h:panelGroup>
+
 
 </h:form>
 
