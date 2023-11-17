@@ -8,9 +8,21 @@
 
 
 <h:form>
-<h:commandLink value="Administração" action="index2" style="margin-left:1cm;"/>
-<h:commandLink value="Lançamentos" action="Lançamento" style="margin-left:1cm;"/>
-<h:commandLink value="Trocar Usuario" action="#{pessoaBean.deslogar}" style="margin-left:1cm;"/>
+
+    <b:navBar brand="MENU" fluid="true">
+        <b:navbarLinks>
+           <b:navCommandLink action="index2" value="Administração" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"/>
+           <b:navCommandLink action="lancamento" value="lancamentos"/>
+           
+           <b:dropMenu value="Relatorios">
+           <b:navCommandLink value="Rel. notas" action="rellancamento"/>
+            <b:navCommandLink value="Rel. usuario" action="relusuario"/>
+           </b:dropMenu>
+           
+           <b:navCommandLink value="Trocar o Usuario" action="#{pessoaBean.deslogar}" />
+        </b:navbarLinks> 
+    </b:navBar>
+
 </h:form>
 
 </html>

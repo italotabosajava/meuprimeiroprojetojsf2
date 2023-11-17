@@ -11,5 +11,9 @@ public interface IDaoPessoa {
 	Pessoa consultarUsuario(String login, String senha);
 	
 	List<SelectItem> listaEstados();
+
+	List<Pessoa> relatorioPessoa(String nome, String dataIni, String dataFim);
+	
+	
 	
 }

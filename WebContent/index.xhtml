@@ -8,17 +8,20 @@
 
 <h:head>
 	<title>Login</title>
+	<link href="resources/estilo.css" rel="stylesheet"></link>
 </h:head>
 
 <h:body>
 
 <b:messages autoUpdate="true" id="msg" />
-<b:form id="formLogin" style="margin-top:22%; margin-left:40%;">
+<b:form id="formLogin" style="margin-top:10%; margin-left:40%;">
 
 
 <h1>Realize o Login</h1>
 
-<b:panelGrid columns="3">
+<b:panelGrid columns="3" style="width: 30%;">
+
+<b:panel>
 
 <b:column>
    <h:outputLabel value="Login:"/>
@@ -32,8 +35,14 @@
     <b:message for="senha" />
 </b:column>
 
+<b:column>
+<b:commandButton value="Acessar" action="#{pessoaBean.logar}" style="width: 100%;" />
+</b:column>
+
+</b:panel>
+
 </b:panelGrid>
-<b:commandButton value="Acessar" action="#{pessoaBean.logar}"/>
+
 
 
 </b:form>

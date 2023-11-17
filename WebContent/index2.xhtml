@@ -9,6 +9,7 @@
 
 <h:head>
 	<title>Cadastro de usuarios</title>
+	<link href="resources/estilo.css" rel="stylesheet"></link>
 </h:head>
 
 <h:body>
@@ -30,15 +31,13 @@
 <h:outputText value="Cadastro de Usuarios"/>
 </f:facet>
 
+<b:panel>
+
 <b:column>
 <h:outputLabel value="Id:"/>
 <b:inputText value="#{pessoaBean.pessoa.id}" readonly="true"/>
 </b:column>
 
-<b:column>
-<h:outputLabel value="foto:"/>
-<h:inputFile id="foto" value="#{pessoaBean.arquivofoto}"/>
-</b:column>
 
 <b:column>
 <h:outputLabel value="nome:"/>
@@ -52,12 +51,17 @@
 
 <b:column>
 <h:outputLabel value = "idade:"/>
-<b:inputText value= "#{pessoaBean.pessoa.idade}"/>
+<b:inputText value= "#{pessoaBean.pessoa.idade}" mask="numeric"/>
+</b:column>
+
+<b:column>
+<h:outputLabel value="foto:"/>
+<h:inputFile id="foto" value="#{pessoaBean.arquivofoto}"/>
 </b:column>
 
 <b:column>
 <h:outputLabel value="CPF"/>
-<b:inputText value="#{pessoaBean.pessoa.cpf}" pt:placeholder="Informe cpf válido "/>
+<b:inputText value="#{pessoaBean.pessoa.cpf}" pt:placeholder="Informe cpf válido " mask="999.999.999-99"/>
 </b:column>
 
 <b:column>
@@ -74,6 +78,14 @@
     <f:selectItem  itemValue="FEMININO" itemLabel="Feminino"/>    
 </b:selectOneMenu>
 </b:column>
+
+<b:column>
+<h:outputLabel value="Nascimneto:"/>
+
+<b:datepicker locale="en" value="#{pessoaBean.pessoa.dataNascimento}"></b:datepicker>
+
+
+</b:column>
  
 <b:column>
 <h:outputLabel value="Frameworks:"/>
@@ -89,7 +101,7 @@
 
 <b:column>
 <h:outputLabel value="CEP:"/>
-<b:inputText value="#{pessoaBean.pessoa.cep}">
+<b:inputText value="#{pessoaBean.pessoa.cep}" mask="99999-999">
 <f:ajax event="blur" execute="@this" 
 listener="#{pessoaBean.pesquisaCep}"
 render="logradouro complemento bairro localidade uf unidade ibge gia" />
@@ -163,6 +175,9 @@ render="logradouro complemento bairro localidade uf unidade ibge gia" />
 </b:selectOneMenu>
 </b:column>
 
+
+
+
 <b:column>
 <h:outputLabel value="Programador:" />
 <h:selectOneRadio value="#{pessoaBean.pessoa.nivelProgamador}">
@@ -184,6 +199,7 @@ render="logradouro complemento bairro localidade uf unidade ibge gia" />
 </h:selectManyCheckbox>
 </b:column>
 
+</b:panel>
 
 </h:panelGrid>
 <h:commandButton value="Novo" action="#{pessoaBean.novo}" image="/resources/img/new-file_40454.png" title="novo"/>  
@@ -236,16 +252,14 @@ Lista de Usuarios Cadastrados
 </h:commandLink>
 </h:column>
 
-<h:outputLabel style="width:200px;" value ="       "/>
-
-
 <h:column rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 <f:facet name="header">EXCLUIR</f:facet>
-<h:commandLink  action="#{pessoaBean.remove}" immediate="true"> 
+ <h:commandLink action="#{pessoaBean.remove}" title="Excluir" immediate="true">
        <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}" />
         <h:graphicImage value="/resources/img/userdelete_120257.png" title="excluir"/>
 </h:commandLink>
 </h:column>
+   
 </b:dataTable>
 
 </h:form>

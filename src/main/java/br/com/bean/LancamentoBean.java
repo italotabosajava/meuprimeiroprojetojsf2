@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
@@ -15,16 +17,18 @@ import javax.inject.Named;
 import br.com.dao.DaoGeneric;
 import br.com.entidades.Lancamento;
 import br.com.entidades.Pessoa;
+import br.com.entidades.Usuario;
 import br.com.repository.IDaoLancamento;
 import br.com.repository.IDaoLancamentoImpl;
 
 @ViewScoped
-@Named(value = "lancamentoBean")
+@Named(value="lancamentoBean")
 public class LancamentoBean implements Serializable{
 
 	
 	private static final long serialVersionUID = 1L;
-	private Lancamento lancamento = new Lancamento();
+	@Inject
+	private Lancamento lancamento;
 	private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
 	
 	@Inject
@@ -44,6 +48,8 @@ public class LancamentoBean implements Serializable{
 		 
 		 carregarlancamentos();
 		
+		 FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage("Salvo com sucesso"));
+		 
 		 return""; 
 		 }
 	    @PostConstruct
@@ -51,25 +57,39 @@ public class LancamentoBean implements Serializable{
 			FacesContext context = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = context.getExternalContext();
 			Pessoa pessoaUser = (Pessoa) externalContext.getSessionMap().get("usuarioLogado");
-			lancamentos = daoLancamento.consultar(pessoaUser.getId());	
+			lancamentos = daoLancamento.consultarLimit10(pessoaUser.getId());	
 			
 		}
            
 		public String novo() {
 			lancamento = new Lancamento();
-			
 		return "";	
+		
 		}
 		public String remover() {
+			System.out.println("remover sendo chamado");
 			daoGeneric.deletePorId(lancamento);
 			lancamento = new Lancamento();
 			carregarlancamentos();
+			FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage("Excluido com sucesso"));
 			return "";
 		}
+		
+		public String editar() {
+			if (lancamento != null) {
+				return""; 
+			}
+			return"";
+		}		
 	
+	
+		
 	public Lancamento getLancamento() {
 		return lancamento;
 	}
+	
+	
+	
 	public void setLancamento(Lancamento lancamento) {
 		this.lancamento = lancamento;
 	}
