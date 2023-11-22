@@ -120,10 +120,10 @@
       
        <h:column rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">  
       <f:facet name="header">Excluir</f:facet>
-      <b:commandLink action="#{lancamentoBean.remover}" title="Excluir" immediate="true">
+      <h:commandLink action="#{lancamentoBean.remover}" title="Excluir" immediate="true">
          <h:graphicImage value="/resources/img/userdelete_120257.png"/>
             <f:setPropertyActionListener target="#{lancamentoBean.lancamento}" value="#{lanc}" />
-          </b:commandLink>
+          </h:commandLink>
       </h:column>
       
              </b:dataTable>

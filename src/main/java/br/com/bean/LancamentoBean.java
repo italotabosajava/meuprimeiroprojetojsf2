@@ -21,7 +21,7 @@ import br.com.entidades.Usuario;
 import br.com.repository.IDaoLancamento;
 import br.com.repository.IDaoLancamentoImpl;
 
-@ViewScoped
+@RequestScoped
 @Named(value="lancamentoBean")
 public class LancamentoBean implements Serializable{
 
@@ -67,7 +67,7 @@ public class LancamentoBean implements Serializable{
 		
 		}
 		public String remover() {
-			System.out.println("remover sendo chamado");
+			
 			daoGeneric.deletePorId(lancamento);
 			lancamento = new Lancamento();
 			carregarlancamentos();

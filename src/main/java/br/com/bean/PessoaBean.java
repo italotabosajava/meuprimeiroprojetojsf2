@@ -133,6 +133,7 @@ public class PessoaBean implements Serializable{
 	}
 	
 	public String remove() {
+		
 			daoGeneric.deletePorId(pessoa);
 			pessoa = new Pessoa();
 			carregarpessoas();
